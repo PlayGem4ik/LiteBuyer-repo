@@ -102,7 +102,7 @@ public class Expansion extends PlaceholderExpansion {
         } else if (args[0].equals("solditems")) {
             if (args.length == 1) {
                 try {
-                    return "" + LiteBuyer.getSQL().getSoldItems(Bukkit.getOfflinePlayer(args[1]).getUniqueId());
+                    return "" + LiteBuyer.getSQL().getSoldItems(Bukkit.getOfflinePlayer(player.getUniqueId()).getUniqueId());
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
