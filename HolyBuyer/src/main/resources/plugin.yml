@@ -1,0 +1,11 @@
+name: LiteBuyer
+version: '${version}'
+main: plugin.holybuyer.LiteBuyer
+api-version: '1.20'
+author: PlayGem (aka Mangarin7z)
+load: STARTUP
+loadbefore: [Vault]
+softdepend: [Vault, PlaceholderAPI]
+commands:
+  buyer:
+    aliases: ["b"]

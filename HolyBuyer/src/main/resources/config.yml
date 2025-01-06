@@ -1,0 +1,57 @@
+seller:
+  title: '&#ff4d00Скупщик'
+
+  items-in-menu:
+    info:
+      material: WRITABLE_BOOK
+      name: '&#ff4d00ℹ &fИнформация'
+      slot:
+        - 45
+      lore:
+        - ''
+        - '&#ff4d00• &fМножитель: &#ff4d00{multiplier} ({points} поинтов)'
+        - ''
+        - '&#ff4d00• &fЧтобы продать предметы скупщику'
+        - '&#ff4d00• &fположите их в пустые ячейки сверху,'
+        - '&#ff4d00• &fи нажмите на зелёный краситель'
+        - '&#ff4d00• &fсдавая предметы вы повышаете множитель,'
+        - '&#ff4d00• &fпрокачивая множитель вы увеличиваете '
+        - '&#ff4d00• &fцену продажи.'
+        - ''
+    sell:
+      material: LIME_DYE
+      name: '&a'
+      slot:
+        - 53
+      lore:
+        - '&#ff4d00▶ &fНажмите, чтобы продать'
+        - '&f   все ресурсы и получить: &#ff4d00{money}&f монеток.     '
+        - ''
+    divider:
+      material: ORANGE_STAINED_GLASS_PANE
+      slot:
+        - 46
+        - 47
+        - 48
+        - 49
+        - 50
+        - 51
+        - 52
+
+  message-on-sell:
+    - '&#ff4d00▶ &fТекущий множитель: &#ff4d00{multiplier} (+{receivedPoints} поинтов)'
+    - '&#ff4d00▶ &fВаш баланс был пополнен на &#ff4d00{money}.0'
+
+  # - материал;кол-во монет за 1 шт; кол-во очков за 1 шт
+  items-to-sell:
+    - NETHERITE_INGOT;100;100
+    - DIAMOND;100;1
+  multipliers:
+    - 1.1;500
+    - 1.2;1000
+  messages:
+    on-missing-config:
+      - '&#ff4d00[LiteBuyer] &f>> конфига не существует!'
+      - '&#ff4d00[LiteBuyer] &f>> конфиг был &aсоздан!'
+    on-reload:
+      - '&#ff4d00[LiteBuyer] &f>> конфиг был &aперезагружен!'
