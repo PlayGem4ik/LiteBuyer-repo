@@ -133,91 +133,6 @@ public class BuyerUtil {
         return buyerInventory;
     }
 
-    /**
-     * @param p        player
-     * @param category seller categorry
-     * @param page     page of inventory
-     * @return created auto-inventory
-     */
-    public static Inventory getAutoBuyerInventory(Player p, String category, int page) {
-        Inventory inventory = Bukkit.createInventory(null, 54, HexUtil.translate(LiteBuyer.inst().getConfig().getString("seller.auto-buyer-items.title")));
-        ItemStack divider = new ItemStack(Material.valueOf(LiteBuyer.inst().getConfig().getString("seller.auto-buyer-items.divider.material")));
-        ItemMeta dividerMeta = divider.getItemMeta();
-
-        dividerMeta.setDisplayName(" ");
-
-        dividerMeta.getPersistentDataContainer().set(new NamespacedKey(LiteBuyer.inst(), "page"), PersistentDataType.INTEGER, page);
-        dividerMeta.getPersistentDataContainer().set(new NamespacedKey(LiteBuyer.inst(), "buyerui"), PersistentDataType.STRING, "Type 1");
-        dividerMeta.setCustomModelData(0);
-        divider.setItemMeta(dividerMeta);
-        LiteBuyer.inst().getConfig().getIntegerList("seller.auto-buyer-items.divider.slot").forEach(i -> {
-            inventory.setItem(i, divider);
-        });
-
-        ItemStack toggle = new ItemStack(Material.valueOf(LiteBuyer.inst().getConfig().getString("seller.auto-buyer-items.toggle-auto.material")));
-        ItemMeta toggleMeta = toggle.getItemMeta();
-
-        toggleMeta.setDisplayName(HexUtil.translate(LiteBuyer.inst().getConfig().getString("seller.auto-buyer-items.toggle-auto.name")));
-
-        List<String> toggleLore = new ArrayList<>();
-
-        String status = HexUtil.translate("&CN/A");
-        for (String s : LiteBuyer.inst().getConfig().getStringList("seller.auto-buyer-items.toggle-auto.lore")) {
-            if (p.getPersistentDataContainer().has(new NamespacedKey(LiteBuyer.inst(), "autobuyer"), PersistentDataType.STRING)) {
-                if (Boolean.TRUE.equals(p.getPersistentDataContainer().get(new NamespacedKey(LiteBuyer.inst(), "autobuyer"), PersistentDataType.STRING))) {
-                    status = HexUtil.translate(LiteBuyer.inst().getConfig().getString("seller.auto-buyer-items.is-active"));
-                } else {
-                    status = HexUtil.translate(LiteBuyer.inst().getConfig().getString("seller.auto-buyer-items.not-active"));
-                }
-            }
-
-            toggleLore.add(HexUtil.translate(s.replace("{status}", status)));
-        }
-
-        toggleMeta.getPersistentDataContainer().set(new NamespacedKey(LiteBuyer.inst(), "buyerui"), PersistentDataType.STRING, "Type 1");
-        toggleMeta.getPersistentDataContainer().set(new NamespacedKey(LiteBuyer.inst(), "page"), PersistentDataType.INTEGER, page);
-        toggleMeta.setLore(toggleLore);
-        toggleMeta.setCustomModelData(1);
-        toggle.setItemMeta(toggleMeta);
-        LiteBuyer.inst().getConfig().getIntegerList("seller.auto-buyer-items.toggle-auto.slot").forEach(i -> {
-            inventory.setItem(i, toggle);
-        });
-
-        List<ItemStack> sellItems = new ArrayList<>();
-        String sellName = HexUtil.translate(LiteBuyer.inst().getConfig().getString("seller.auto-buyer-items.sell-item.name"));
-        List<String> sellLore = HexUtil.translateList(LiteBuyer.inst().getConfig().getStringList("seller.auto-buyer-items.sell-item.lore"));
-
-        if (LiteBuyer.inst().getConfig().isString("seller.auto-buyer-items." + category + ".items")) {
-
-        } else if (LiteBuyer.inst().getConfig().isList("seller.auto-buyer-items." + category + ".items")) {
-            List<String> materials = LiteBuyer.inst().getConfig().getStringList("seller.auto-buyer-items." + category + ".items");
-
-            for (int i = 0; i < materials.size(); i++) {
-                if (replaceAllNumbers(materials.get(i), "n").equals("{sell-items_n}")) {
-                    int index = 0;
-                    if (LiteBuyer.inst().getConfig().getStringList("seller.items-to-sell").size() > Integer.parseInt("" + materials.get(i).charAt(materials.get(i).length() - 1))) {
-                        index = Integer.parseInt("" + materials.get(i).charAt(materials.get(i).length() - 1));
-
-                        materials.set(i, LiteBuyer.inst().getConfig().getStringList("seller.items-to-sell").get(index));
-                    } else {
-
-                        Bukkit.getLogger().warning("[LiteBuyer] >> " + materials.get(i) + " " + index + " " + " индекс должен быть меньше размера списка.");
-                    }
-                }
-            }
-
-            for (String material : materials) {
-                sellItems.add(new ItemStack(Material.valueOf(material)));
-            }
-        }
-
-        sellItems.forEach(item -> {
-            LiteBuyer.inst().getConfig().getIntegerList("seller.");
-        });
-
-        return inventory;
-    }
-
     public static boolean isBuyerInventory(Inventory inventory) {
         for (ItemStack i : inventory.getContents()) {
             if (i != null && i.getItemMeta() != null) {
@@ -276,14 +191,3 @@ public class BuyerUtil {
             }
         }
     }
-
-    public static String replaceAllNumbers(String target, String replaceWith) {
-        String res = target;
-
-        for (int i = 0; i < 9; i++) {
-            res = target.replace("" + i, replaceWith);
-        }
-
-        return res;
-    }
-}
